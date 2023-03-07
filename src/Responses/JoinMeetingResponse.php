@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,11 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Responses;
 
 /**
- * Class JoinMeetingResponse.
+ * Class JoinMeetingResponse
+ * @package Alireza5014\Responses
  */
 class JoinMeetingResponse extends BaseResponse
 {
@@ -55,21 +54,5 @@ class JoinMeetingResponse extends BaseResponse
     public function getSessionToken()
     {
         return $this->rawXml->session_token->__toString();
-    }
-
-    /**
-     * @return string
-     */
-    public function getGuestStatus()
-    {
-        return $this->rawXml->guestStatus->__toString();
-    }
-
-    /**
-     * @return string
-     */
-    public function getUrl()
-    {
-        return $this->rawXml->url->__toString();
     }
 }

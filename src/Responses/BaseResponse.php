@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,17 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Responses;
 
 /**
- * Class BaseResponse.
+ * Class BaseResponse
+ * @package Alireza5014\Responses
  */
 abstract class BaseResponse
 {
-    public const SUCCESS = 'SUCCESS';
-    public const FAILED  = 'FAILED';
-
     /**
      * @var \SimpleXMLElement
      */
@@ -35,6 +31,8 @@ abstract class BaseResponse
 
     /**
      * BaseResponse constructor.
+     *
+     * @param \SimpleXMLElement $xml
      */
     public function __construct(\SimpleXMLElement $xml)
     {
@@ -71,15 +69,5 @@ abstract class BaseResponse
     public function getMessage()
     {
         return $this->rawXml->message->__toString();
-    }
-
-    public function success()
-    {
-        return self::SUCCESS === $this->getReturnCode();
-    }
-
-    public function failed()
-    {
-        return self::FAILED === $this->getReturnCode();
     }
 }

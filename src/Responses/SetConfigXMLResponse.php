@@ -16,53 +16,19 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-namespace Alireza5014\Parameters;
+namespace Alireza5014\Responses;
 
 /**
- * Class IsMeetingRunningParameters
+ * Class SetConfigXMLResponse
  * @package Alireza5014\Parameters
  */
-class IsMeetingRunningParameters extends BaseParameters
+class SetConfigXMLResponse extends BaseResponse
 {
     /**
-     * @var string
+     * @return bool
      */
-    private $meetingId;
-
-    /**
-     * IsMeetingRunningParameters constructor.
-     *
-     * @param $meetingId
-     */
-    public function __construct($meetingId)
+    public function getToken()
     {
-        $this->meetingId = $meetingId;
-    }
-
-    /**
-     * @return string
-     */
-    public function getMeetingId()
-    {
-        return $this->meetingId;
-    }
-
-    /**
-     * @param  string                     $meetingId
-     * @return IsMeetingRunningParameters
-     */
-    public function setMeetingId($meetingId)
-    {
-        $this->meetingId = $meetingId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHTTPQuery()
-    {
-        return $this->buildHTTPQuery(['meetingID' => $this->meetingId]);
+        return $this->rawXml->configToken->__toString();
     }
 }

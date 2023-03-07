@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,16 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Parameters;
 
 use Alireza5014\Responses\ApiVersionResponse;
 use Alireza5014\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class ApiVersionResponseTest extends TestCase
 {
     /**
@@ -34,7 +28,7 @@ class ApiVersionResponseTest extends TestCase
      */
     private $version;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -47,12 +41,10 @@ class ApiVersionResponseTest extends TestCase
     {
         $this->assertEquals('SUCCESS', $this->version->getReturnCode());
         $this->assertEquals('2.0', $this->version->getVersion());
-        $this->assertEquals('2.0', $this->version->getApiVersion());
-        $this->assertEquals('2.4-rc-7', $this->version->getBbbVersion());
     }
 
     public function testApiVersionResponseTypes()
     {
-        $this->assertEachGetterValueIsString($this->version, ['getReturnCode', 'getVersion', 'getApiVersion', 'getBbbVersion']);
+        $this->assertEachGetterValueIsString($this->version, ['getReturnCode', 'getVersion']);
     }
 }

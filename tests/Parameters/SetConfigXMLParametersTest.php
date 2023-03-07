@@ -18,51 +18,23 @@
  */
 namespace Alireza5014\Parameters;
 
+use Alireza5014\TestCase as TestCase;
+
 /**
- * Class IsMeetingRunningParameters
+ * Class SetConfigXMLParametersTest
  * @package Alireza5014\Parameters
  */
-class IsMeetingRunningParameters extends BaseParameters
+class SetConfigXMLParametersTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $meetingId;
-
-    /**
-     * IsMeetingRunningParameters constructor.
-     *
-     * @param $meetingId
-     */
-    public function __construct($meetingId)
+    public function testSetConfigXMLParameters()
     {
-        $this->meetingId = $meetingId;
-    }
+        $params             = $this->generateSetConfigXMLParams();
+        $setConfigXMLParams = $this->getSetConfigXMLMock($params);
 
-    /**
-     * @return string
-     */
-    public function getMeetingId()
-    {
-        return $this->meetingId;
-    }
+        $this->assertEquals($params['meetingId'], $setConfigXMLParams->getMeetingId());
 
-    /**
-     * @param  string                     $meetingId
-     * @return IsMeetingRunningParameters
-     */
-    public function setMeetingId($meetingId)
-    {
-        $this->meetingId = $meetingId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHTTPQuery()
-    {
-        return $this->buildHTTPQuery(['meetingID' => $this->meetingId]);
+        // Test setters that are ignored by the constructor
+        $setConfigXMLParams->setMeetingId($newId = $this->faker->uuid);
+        $this->assertEquals($newId, $setConfigXMLParams->getMeetingId());
     }
 }

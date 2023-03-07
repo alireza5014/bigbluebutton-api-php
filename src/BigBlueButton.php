@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,18 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014;
 
 use Alireza5014\Core\ApiMethod;
-use Alireza5014\Exceptions\BadResponseException;
 use Alireza5014\Parameters\CreateMeetingParameters;
 use Alireza5014\Parameters\DeleteRecordingsParameters;
 use Alireza5014\Parameters\EndMeetingParameters;
 use Alireza5014\Parameters\GetMeetingInfoParameters;
 use Alireza5014\Parameters\GetRecordingsParameters;
-use Alireza5014\Parameters\HooksCreateParameters;
-use Alireza5014\Parameters\HooksDestroyParameters;
 use Alireza5014\Parameters\IsMeetingRunningParameters;
 use Alireza5014\Parameters\JoinMeetingParameters;
 use Alireza5014\Parameters\PublishRecordingsParameters;
@@ -37,52 +32,40 @@ use Alireza5014\Responses\ApiVersionResponse;
 use Alireza5014\Responses\CreateMeetingResponse;
 use Alireza5014\Responses\DeleteRecordingsResponse;
 use Alireza5014\Responses\EndMeetingResponse;
+use Alireza5014\Responses\GetDefaultConfigXMLResponse;
 use Alireza5014\Responses\GetMeetingInfoResponse;
 use Alireza5014\Responses\GetMeetingsResponse;
 use Alireza5014\Responses\GetRecordingsResponse;
-use Alireza5014\Responses\HooksCreateResponse;
-use Alireza5014\Responses\HooksDestroyResponse;
-use Alireza5014\Responses\HooksListResponse;
 use Alireza5014\Responses\IsMeetingRunningResponse;
 use Alireza5014\Responses\JoinMeetingResponse;
 use Alireza5014\Responses\PublishRecordingsResponse;
+use Alireza5014\Responses\SetConfigXMLResponse;
 use Alireza5014\Responses\UpdateRecordingsResponse;
 use Alireza5014\Util\UrlBuilder;
 use SimpleXMLElement;
 
 /**
- * Class BigBlueButton.
+ * Class BigBlueButton
+ * @package BigBlueButton
  */
 class BigBlueButton
 {
     protected $securitySecret;
     protected $bbbServerBaseUrl;
     protected $urlBuilder;
-    protected $jSessionId;
-    protected $timeOut = 10;
-    protected $curlopts = [];
 
-    /**
-     * BigBlueButton constructor.
-     *
-     * @param null $baseUrl
-     * @param null $secret
-     * @param null|mixed $opts
-     */
-    public function __construct($baseUrl = null, $secret = null, $opts = null)
+    public function __construct()
     {
         // Keeping backward compatibility with older deployed versions
-        // BBB_SECRET is the new variable name and have higher priority against the old named BBB_SECURITY_SALT
-        $this->securitySecret = $secret ?: getenv('BBB_SECRET') ?: getenv('BBB_SECURITY_SALT');
-        $this->bbbServerBaseUrl = $baseUrl ?: getenv('BBB_SERVER_BASE_URL');
-        $this->urlBuilder = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
-        $this->curlopts = $opts['curl'] ?? [];
+        $this->securitySecret   = (getenv('BBB_SECURITY_SALT') === false) ? getenv('BBB_SECRET') : $this->securitySecret   = getenv('BBB_SECURITY_SALT');
+        $this->bbbServerBaseUrl = getenv('BBB_SERVER_BASE_URL');
+        $this->urlBuilder       = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
     }
 
     /**
      * @return ApiVersionResponse
-     * @throws \RuntimeException
      *
+     * @throws \RuntimeException
      */
     public function getApiVersion()
     {
@@ -91,16 +74,17 @@ class BigBlueButton
         return new ApiVersionResponse($xml);
     }
 
-    // __________________ BBB ADMINISTRATION METHODS _________________
+    /* __________________ BBB ADMINISTRATION METHODS _________________ */
     /* The methods in the following section support the following categories of the BBB API:
     -- create
+    -- getDefaultConfigXML
+    -- setConfigXML
     -- join
     -- end
     */
 
     /**
-     * @param CreateMeetingParameters $createMeetingParams
-     *
+     * @param  CreateMeetingParameters $createMeetingParams
      * @return string
      */
     public function getCreateMeetingUrl($createMeetingParams)
@@ -109,17 +93,56 @@ class BigBlueButton
     }
 
     /**
-     * @param CreateMeetingParameters $createMeetingParams
-     *
+     * @param  CreateMeetingParameters $createMeetingParams
      * @return CreateMeetingResponse
      * @throws \RuntimeException
-     *
      */
     public function createMeeting($createMeetingParams)
     {
         $xml = $this->processXmlResponse($this->getCreateMeetingUrl($createMeetingParams), $createMeetingParams->getPresentationsAsXML());
 
         return new CreateMeetingResponse($xml);
+    }
+
+    /**
+     * @return string
+     */
+    public function getDefaultConfigXMLUrl()
+    {
+        return $this->urlBuilder->buildUrl(ApiMethod::GET_DEFAULT_CONFIG_XML);
+    }
+
+    /**
+     * @return GetDefaultConfigXMLResponse
+     * @throws \RuntimeException
+     */
+    public function getDefaultConfigXML()
+    {
+        $xml = $this->processXmlResponse($this->getDefaultConfigXMLUrl());
+
+        return new GetDefaultConfigXMLResponse($xml);
+    }
+
+    /**
+     * @return string
+     */
+    public function setConfigXMLUrl()
+    {
+        return $this->urlBuilder->buildUrl(ApiMethod::SET_CONFIG_XML, '', false);
+    }
+
+    /**
+     * @param  $setConfigXMLParams
+     * @return SetConfigXMLResponse
+     * @throws \RuntimeException
+     */
+    public function setConfigXML($setConfigXMLParams)
+    {
+        $setConfigXMLPayload = $this->urlBuilder->buildQs(ApiMethod::SET_CONFIG_XML, $setConfigXMLParams->getHTTPQuery());
+
+        $xml = $this->processXmlResponse($this->setConfigXMLUrl(), $setConfigXMLPayload, 'application/x-www-form-urlencoded');
+
+        return new SetConfigXMLResponse($xml);
     }
 
     /**
@@ -137,7 +160,6 @@ class BigBlueButton
      *
      * @return JoinMeetingResponse
      * @throws \RuntimeException
-     *
      */
     public function joinMeeting($joinMeetingParams)
     {
@@ -160,9 +182,8 @@ class BigBlueButton
      * @param $endParams EndMeetingParameters
      *
      * @return EndMeetingResponse
-     * *@throws \RuntimeException
-     *
-     */
+     * @throws \RuntimeException
+     * */
     public function endMeeting($endParams)
     {
         $xml = $this->processXmlResponse($this->getEndMeetingURL($endParams));
@@ -170,7 +191,7 @@ class BigBlueButton
         return new EndMeetingResponse($xml);
     }
 
-    // __________________ BBB MONITORING METHODS _________________
+    /* __________________ BBB MONITORING METHODS _________________ */
     /* The methods in the following section support the following categories of the BBB API:
     -- isMeetingRunning
     -- getMeetings
@@ -179,7 +200,6 @@ class BigBlueButton
 
     /**
      * @param $meetingParams IsMeetingRunningParameters
-     *
      * @return string
      */
     public function getIsMeetingRunningUrl($meetingParams)
@@ -189,10 +209,8 @@ class BigBlueButton
 
     /**
      * @param $meetingParams
-     *
      * @return IsMeetingRunningResponse
      * @throws \RuntimeException
-     *
      */
     public function isMeetingRunning($meetingParams)
     {
@@ -212,7 +230,6 @@ class BigBlueButton
     /**
      * @return GetMeetingsResponse
      * @throws \RuntimeException
-     *
      */
     public function getMeetings()
     {
@@ -223,7 +240,6 @@ class BigBlueButton
 
     /**
      * @param $meetingParams GetMeetingInfoParameters
-     *
      * @return string
      */
     public function getMeetingInfoUrl($meetingParams)
@@ -233,10 +249,8 @@ class BigBlueButton
 
     /**
      * @param $meetingParams GetMeetingInfoParameters
-     *
      * @return GetMeetingInfoResponse
      * @throws \RuntimeException
-     *
      */
     public function getMeetingInfo($meetingParams)
     {
@@ -245,7 +259,7 @@ class BigBlueButton
         return new GetMeetingInfoResponse($xml);
     }
 
-    // __________________ BBB RECORDING METHODS _________________
+    /* __________________ BBB RECORDING METHODS _________________ */
     /* The methods in the following section support the following categories of the BBB API:
     -- getRecordings
     -- publishRecordings
@@ -254,7 +268,6 @@ class BigBlueButton
 
     /**
      * @param $recordingsParams GetRecordingsParameters
-     *
      * @return string
      */
     public function getRecordingsUrl($recordingsParams)
@@ -264,10 +277,8 @@ class BigBlueButton
 
     /**
      * @param $recordingParams
-     *
      * @return GetRecordingsResponse
      * @throws \RuntimeException
-     *
      */
     public function getRecordings($recordingParams)
     {
@@ -278,7 +289,6 @@ class BigBlueButton
 
     /**
      * @param $recordingParams PublishRecordingsParameters
-     *
      * @return string
      */
     public function getPublishRecordingsUrl($recordingParams)
@@ -288,10 +298,8 @@ class BigBlueButton
 
     /**
      * @param $recordingParams PublishRecordingsParameters
-     *
      * @return PublishRecordingsResponse
      * @throws \RuntimeException
-     *
      */
     public function publishRecordings($recordingParams)
     {
@@ -302,7 +310,6 @@ class BigBlueButton
 
     /**
      * @param $recordingParams DeleteRecordingsParameters
-     *
      * @return string
      */
     public function getDeleteRecordingsUrl($recordingParams)
@@ -312,10 +319,8 @@ class BigBlueButton
 
     /**
      * @param $recordingParams DeleteRecordingsParameters
-     *
      * @return DeleteRecordingsResponse
      * @throws \RuntimeException
-     *
      */
     public function deleteRecordings($recordingParams)
     {
@@ -326,7 +331,6 @@ class BigBlueButton
 
     /**
      * @param $recordingParams UpdateRecordingsParameters
-     *
      * @return string
      */
     public function getUpdateRecordingsUrl($recordingParams)
@@ -336,10 +340,8 @@ class BigBlueButton
 
     /**
      * @param $recordingParams UpdateRecordingsParameters
-     *
      * @return UpdateRecordingsResponse
      * @throws \RuntimeException
-     *
      */
     public function updateRecordings($recordingParams)
     {
@@ -348,136 +350,16 @@ class BigBlueButton
         return new UpdateRecordingsResponse($xml);
     }
 
-    // ____________________ WEB HOOKS METHODS ___________________
-
-    /**
-     * @param $hookCreateParams HooksCreateParameters
-     *
-     * @return string
-     */
-    public function getHooksCreateUrl($hookCreateParams)
-    {
-        return $this->urlBuilder->buildUrl(ApiMethod::HOOKS_CREATE, $hookCreateParams->getHTTPQuery());
-    }
-
-    /**
-     * @param $hookCreateParams
-     *
-     * @return HooksCreateResponse
-     */
-    public function hooksCreate($hookCreateParams)
-    {
-        $xml = $this->processXmlResponse($this->getHooksCreateUrl($hookCreateParams));
-
-        return new HooksCreateResponse($xml);
-    }
-
-    /**
-     * @return string
-     */
-    public function getHooksListUrl()
-    {
-        return $this->urlBuilder->buildUrl(ApiMethod::HOOKS_LIST);
-    }
-
-    /**
-     * @return HooksListResponse
-     */
-    public function hooksList()
-    {
-        $xml = $this->processXmlResponse($this->getHooksListUrl());
-
-        return new HooksListResponse($xml);
-    }
-
-    /**
-     * @param $hooksDestroyParams HooksDestroyParameters
-     *
-     * @return string
-     */
-    public function getHooksDestroyUrl($hooksDestroyParams)
-    {
-        return $this->urlBuilder->buildUrl(ApiMethod::HOOKS_DESTROY, $hooksDestroyParams->getHTTPQuery());
-    }
-
-    /**
-     * @param $hooksDestroyParams
-     *
-     * @return HooksDestroyResponse
-     */
-    public function hooksDestroy($hooksDestroyParams)
-    {
-        $xml = $this->processXmlResponse($this->getHooksDestroyUrl($hooksDestroyParams));
-
-        return new HooksDestroyResponse($xml);
-    }
-
-    // ____________________ SPECIAL METHODS ___________________
-
-    /**
-     * @return string
-     */
-    public function getJSessionId()
-    {
-        return $this->jSessionId;
-    }
-
-    /**
-     * @param string $jSessionId
-     */
-    public function setJSessionId($jSessionId)
-    {
-        $this->jSessionId = $jSessionId;
-    }
-
-    /**
-     * @param array $curlopts
-     */
-    public function setCurlOpts($curlopts)
-    {
-        $this->curlopts = $curlopts;
-    }
-
-    /**
-     * Set Curl Timeout (Optional), Default 10 Seconds.
-     *
-     * @param int $TimeOutInSeconds
-     *
-     * @return static
-     */
-    public function setTimeOut($TimeOutInSeconds)
-    {
-        $this->timeOut = $TimeOutInSeconds;
-
-        return $this;
-    }
-
-    /**
-     * Public accessor for buildUrl.
-     *
-     * @param string $method
-     * @param string $params
-     * @param boolean $append
-     *
-     * @return string
-     */
-    public function buildUrl($method = '', $params = '', $append = true)
-    {
-        return $this->urlBuilder->buildUrl($method, $params, $append);
-    }
-
-    // ____________________ INTERNAL CLASS METHODS ___________________
+    /* ____________________ INTERNAL CLASS METHODS ___________________ */
 
     /**
      * A private utility method used by other public methods to process XML responses.
      *
-     * @param string $url
-     * @param string $payload
-     * @param string $contentType
-     *
+     * @param  string            $url
+     * @param  string            $payload
+     * @param  string            $contentType
      * @return SimpleXMLElement
      * @throws \RuntimeException
-     *
      */
     private function processXmlResponse($url, $payload = '', $contentType = 'application/xml')
     {
@@ -487,22 +369,11 @@ class BigBlueButton
                 throw new \RuntimeException('Unhandled curl error: ' . curl_error($ch));
             }
             $timeout = 10;
-
-            // Needed to store the JSESSIONID
-            $cookiefile = tmpfile();
-            $cookiefilepath = stream_get_meta_data($cookiefile)['uri'];
-
-            foreach ($this->curlopts as $opt => $value) {
-                curl_setopt($ch, $opt, $value);
-            }
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 1);
             curl_setopt($ch, CURLOPT_ENCODING, 'UTF-8');
             curl_setopt($ch, CURLOPT_URL, $url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-            curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiefilepath);
-            curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiefilepath);
             if (!empty($payload)) {
                 curl_setopt($ch, CURLOPT_HEADER, 0);
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
@@ -514,25 +385,14 @@ class BigBlueButton
                 ]);
             }
             $data = curl_exec($ch);
-            if (false === $data) {
+            if ($data === false) {
                 throw new \RuntimeException('Unhandled curl error: ' . curl_error($ch));
             }
-            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if ($httpcode < 200 || $httpcode >= 300) {
-                throw new BadResponseException('Bad response, HTTP code: ' . $httpcode);
-            }
             curl_close($ch);
-            unset($ch);
-
-            $cookies = file_get_contents($cookiefilepath);
-            if (false !== mb_strpos($cookies, 'JSESSIONID')) {
-                preg_match('/(?:JSESSIONID\s*)(?<JSESSIONID>.*)/', $cookies, $output_array);
-                $this->setJSessionId($output_array['JSESSIONID']);
-            }
 
             return new SimpleXMLElement($data);
+        } else {
+            throw new \RuntimeException('Post XML data set but curl PHP module is not installed or not enabled.');
         }
-
-        throw new \RuntimeException('Post XML data set but curl PHP module is not installed or not enabled.');
     }
 }

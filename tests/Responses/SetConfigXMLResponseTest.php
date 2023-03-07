@@ -18,51 +18,34 @@
  */
 namespace Alireza5014\Parameters;
 
-/**
- * Class IsMeetingRunningParameters
- * @package Alireza5014\Parameters
- */
-class IsMeetingRunningParameters extends BaseParameters
+use Alireza5014\Responses\SetConfigXMLResponse;
+use Alireza5014\TestCase;
+
+class SetConfigXMLResponseTest extends TestCase
 {
     /**
-     * @var string
+     * @var \Alireza5014\Responses\SetConfigXMLResponse
      */
-    private $meetingId;
+    private $config;
 
-    /**
-     * IsMeetingRunningParameters constructor.
-     *
-     * @param $meetingId
-     */
-    public function __construct($meetingId)
+    public function setUp()
     {
-        $this->meetingId = $meetingId;
+        parent::setUp();
+
+        $xml = $this->loadXmlFile(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR . 'set_config_xml.xml');
+
+        $this->config = new SetConfigXMLResponse($xml);
     }
 
-    /**
-     * @return string
-     */
-    public function getMeetingId()
+    public function testSetConfigXMLResponseContent()
     {
-        return $this->meetingId;
+        $this->assertEquals('SUCCESS', $this->config->getReturnCode());
+        $this->assertEquals('TETDApIC', $this->config->getToken());
     }
 
-    /**
-     * @param  string                     $meetingId
-     * @return IsMeetingRunningParameters
-     */
-    public function setMeetingId($meetingId)
+    public function testSetConfigXMLResponseTypes()
     {
-        $this->meetingId = $meetingId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHTTPQuery()
-    {
-        return $this->buildHTTPQuery(['meetingID' => $this->meetingId]);
+        $this->assertEachGetterValueIsString($this->config, ['getReturnCode']);
+        $this->assertEachGetterValueIsString($this->config, ['getToken']);
     }
 }

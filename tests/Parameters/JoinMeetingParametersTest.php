@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,15 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Parameters;
 
-use Alireza5014\TestCase;
+use Alireza5014\TestCase as TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class JoinMeetingParametersTest extends TestCase
 {
     public function testJoinMeetingParameters()
@@ -44,13 +38,14 @@ class JoinMeetingParametersTest extends TestCase
         $this->assertEquals($params['userdata_commercial'], $joinMeetingParams->getUserData('commercial'));
 
         // Test setters that are ignored by the constructor
-        $joinMeetingParams->setMeetingId($newId         = $this->faker->uuid);
-        $joinMeetingParams->setUsername($newName        = $this->faker->name);
-        $joinMeetingParams->setPassword($newPassword    = $this->faker->password);
+        $joinMeetingParams->setMeetingId($newId = $this->faker->uuid);
+        $joinMeetingParams->setUsername($newName = $this->faker->name);
+        $joinMeetingParams->setPassword($newPassword = $this->faker->password);
         $joinMeetingParams->setConfigToken($configToken = $this->faker->md5);
-        $joinMeetingParams->setAvatarURL($avatarUrl     = $this->faker->url);
-        $joinMeetingParams->setRedirect($redirect       = $this->faker->boolean(50));
-        $joinMeetingParams->setClientURL($clientUrl     = $this->faker->url);
+        $joinMeetingParams->setAvatarURL($avatarUrl = $this->faker->url);
+        $joinMeetingParams->setRedirect($redirect = $this->faker->boolean(50));
+        $joinMeetingParams->setClientURL($clientUrl = $this->faker->url);
+        $joinMeetingParams->setJoinViaHtml5($joinViaHtml5 = $this->faker->boolean(50));
         $this->assertEquals($newId, $joinMeetingParams->getMeetingId());
         $this->assertEquals($newName, $joinMeetingParams->getUsername());
         $this->assertEquals($newPassword, $joinMeetingParams->getPassword());
@@ -58,5 +53,6 @@ class JoinMeetingParametersTest extends TestCase
         $this->assertEquals($avatarUrl, $joinMeetingParams->getAvatarURL());
         $this->assertEquals($redirect, $joinMeetingParams->isRedirect());
         $this->assertEquals($clientUrl, $joinMeetingParams->getClientURL());
+        $this->assertEquals($joinViaHtml5, $joinMeetingParams->isJoinViaHtml5());
     }
 }

@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,19 +16,14 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Core;
 
 /**
- * Class Record.
+ * Class Record
+ * @package Alireza5014\Core
  */
 class Record
 {
-    /**
-     * @var \SimpleXMLElement
-     */
-    protected $rawXml;
-
     private $recordId;
     private $meetingId;
     private $name;
@@ -37,36 +31,21 @@ class Record
     private $state;
     private $startTime;
     private $endTime;
-
-    /**
-     * @deprecated deprecated since 2.1.2
-     */
     private $playbackType;
-
-    /**
-     * @deprecated deprecated since 2.1.2
-     */
     private $playbackUrl;
-
-    /**
-     * @deprecated deprecated since 2.1.2
-     */
     private $playbackLength;
     private $metas;
-    private $formats;
 
     /**
      * Record constructor.
-     *
      * @param $xml \SimpleXMLElement
      */
     public function __construct($xml)
     {
-        $this->rawXml         = $xml;
         $this->recordId       = $xml->recordID->__toString();
         $this->meetingId      = $xml->meetingID->__toString();
         $this->name           = $xml->name->__toString();
-        $this->isPublished    = 'true' === $xml->published->__toString();
+        $this->isPublished    = $xml->published->__toString() === 'true';
         $this->state          = $xml->state->__toString();
         $this->startTime      = (float) $xml->startTime->__toString();
         $this->endTime        = (float) $xml->endTime->__toString();
@@ -137,8 +116,6 @@ class Record
 
     /**
      * @return string
-     *
-     * @deprecated
      */
     public function getPlaybackType()
     {
@@ -147,8 +124,6 @@ class Record
 
     /**
      * @return string
-     *
-     * @deprecated
      */
     public function getPlaybackUrl()
     {
@@ -157,8 +132,6 @@ class Record
 
     /**
      * @return string
-     *
-     * @deprecated
      */
     public function getPlaybackLength()
     {
@@ -171,20 +144,5 @@ class Record
     public function getMetas()
     {
         return $this->metas;
-    }
-
-    /**
-     * @return Format[]
-     */
-    public function getFormats()
-    {
-        if (null === $this->formats) {
-            $this->formats = [];
-            foreach ($this->rawXml->playback->format as $formatXml) {
-                $this->formats[] = new Format($formatXml);
-            }
-        }
-
-        return $this->formats;
     }
 }

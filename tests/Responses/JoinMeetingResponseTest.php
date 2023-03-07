@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,16 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Parameters;
 
 use Alireza5014\Responses\JoinMeetingResponse;
 use Alireza5014\TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class JoinMeetingResponseTest extends TestCase
 {
     /**
@@ -34,7 +28,7 @@ class JoinMeetingResponseTest extends TestCase
      */
     private $joinMeeting;
 
-    public function setUp(): void
+    public function setUp()
     {
         parent::setUp();
 
@@ -52,12 +46,10 @@ class JoinMeetingResponseTest extends TestCase
         $this->assertEquals('ao6ehbtvbmhz', $this->joinMeeting->getUserId());
         $this->assertEquals('huzbpgthac7s', $this->joinMeeting->getAuthToken());
         $this->assertEquals('rbe7bbkjzx5mnoda', $this->joinMeeting->getSessionToken());
-        $this->assertEquals('ALLOW', $this->joinMeeting->getGuestStatus());
-        $this->assertEquals('https://bigblubutton-server.sample/client/BigBlueButton.html?sessionToken=0wzsph6uaelwc68z', $this->joinMeeting->getUrl());
     }
 
     public function testJoinMeetingResponseTypes()
     {
-        $this->assertEachGetterValueIsString($this->joinMeeting, ['getReturnCode', 'getMessageKey', 'getMessage', 'getMeetingId', 'getUserId', 'getAuthToken', 'getSessionToken', 'getGuestStatus', 'getUrl']);
+        $this->assertEachGetterValueIsString($this->joinMeeting, ['getReturnCode', 'getMessageKey', 'getMessage', 'getMeetingId', 'getUserId', 'getAuthToken', 'getSessionToken']);
     }
 }

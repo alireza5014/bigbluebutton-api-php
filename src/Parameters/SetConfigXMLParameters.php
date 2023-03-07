@@ -19,10 +19,10 @@
 namespace Alireza5014\Parameters;
 
 /**
- * Class IsMeetingRunningParameters
+ * Class SetConfigXMLParameters
  * @package Alireza5014\Parameters
  */
-class IsMeetingRunningParameters extends BaseParameters
+class SetConfigXMLParameters extends BaseParameters
 {
     /**
      * @var string
@@ -30,7 +30,12 @@ class IsMeetingRunningParameters extends BaseParameters
     private $meetingId;
 
     /**
-     * IsMeetingRunningParameters constructor.
+     * @var \SimpleXMLElement
+     */
+    private $rawXml;
+
+    /**
+     * SetConfigXMLParameters constructor.
      *
      * @param $meetingId
      */
@@ -48,8 +53,8 @@ class IsMeetingRunningParameters extends BaseParameters
     }
 
     /**
-     * @param  string                     $meetingId
-     * @return IsMeetingRunningParameters
+     * @param  string                 $meetingId
+     * @return SetConfigXMLParameters
      */
     public function setMeetingId($meetingId)
     {
@@ -61,8 +66,32 @@ class IsMeetingRunningParameters extends BaseParameters
     /**
      * @return string
      */
+    public function getRawXml()
+    {
+        return $this->rawXml;
+    }
+
+    /**
+     * @param  \SimpleXMLElement      $rawXml
+     * @return SetConfigXMLParameters
+     */
+    public function setRawXml($rawXml)
+    {
+        $this->rawXml = $rawXml;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getHTTPQuery()
     {
-        return $this->buildHTTPQuery(['meetingID' => $this->meetingId]);
+        return $this->buildHTTPQuery(
+            [
+                'configXML' => urlencode($this->rawXml->asXML()),
+                'meetingID' => $this->meetingId,
+            ]
+        );
     }
 }

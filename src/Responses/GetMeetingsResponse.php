@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,13 +16,13 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Responses;
 
 use Alireza5014\Core\Meeting;
 
 /**
- * Class GetMeetingsResponse.
+ * Class GetMeetingsResponse
+ * @package Alireza5014\Responses
  */
 class GetMeetingsResponse extends BaseResponse
 {
@@ -37,7 +36,7 @@ class GetMeetingsResponse extends BaseResponse
      */
     public function getMeetings()
     {
-        if (null === $this->meetings) {
+        if ($this->meetings === null) {
             $this->meetings = [];
             foreach ($this->rawXml->meetings->children() as $meetingXml) {
                 $this->meetings[] = new Meeting($meetingXml);

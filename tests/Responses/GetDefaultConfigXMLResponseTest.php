@@ -16,53 +16,28 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-namespace Alireza5014\Parameters;
+namespace Alireza5014\Responses;
 
-/**
- * Class IsMeetingRunningParameters
- * @package Alireza5014\Parameters
- */
-class IsMeetingRunningParameters extends BaseParameters
+use Alireza5014\TestCase;
+
+class GetDefaultConfigXMLResponseTest extends TestCase
 {
     /**
-     * @var string
+     * @var \Alireza5014\Responses\GetDefaultConfigXMLResponse
      */
-    private $meetingId;
+    private $configXml;
 
-    /**
-     * IsMeetingRunningParameters constructor.
-     *
-     * @param $meetingId
-     */
-    public function __construct($meetingId)
+    public function setUp()
     {
-        $this->meetingId = $meetingId;
+        parent::setUp();
+
+        $xml = $this->loadXmlFile(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR . 'default_config_xml.xml');
+
+        $this->configXml = new GetDefaultConfigXMLResponse($xml);
     }
 
-    /**
-     * @return string
-     */
-    public function getMeetingId()
+    public function testEndMeetingResponseContent()
     {
-        return $this->meetingId;
-    }
-
-    /**
-     * @param  string                     $meetingId
-     * @return IsMeetingRunningParameters
-     */
-    public function setMeetingId($meetingId)
-    {
-        $this->meetingId = $meetingId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getHTTPQuery()
-    {
-        return $this->buildHTTPQuery(['meetingID' => $this->meetingId]);
+        $this->assertNotEmpty('SUCCESS', $this->configXml->getRawXml()->asXML());
     }
 }

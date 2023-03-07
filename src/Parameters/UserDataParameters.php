@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,11 +16,11 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Parameters;
 
 /**
- * Class UserDataParameters.
+ * Class UserDataParameters
+ * @package Alireza5014\Parameters
  */
 abstract class UserDataParameters extends BaseParameters
 {
@@ -32,7 +31,6 @@ abstract class UserDataParameters extends BaseParameters
 
     /**
      * @param $key
-     *
      * @return mixed
      */
     public function getUserData($key)
@@ -55,7 +53,7 @@ abstract class UserDataParameters extends BaseParameters
 
     protected function buildUserData(&$queries)
     {
-        if (0 !== count($this->userData)) {
+        if (count($this->userData) !== 0) {
             foreach ($this->userData as $k => $v) {
                 if (!is_bool($v)) {
                     $queries['userdata-' . $k] = $v;

@@ -1,9 +1,8 @@
 <?php
-
-/*
+/**
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -17,15 +16,10 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Alireza5014\Parameters;
 
-use Alireza5014\TestCase;
+use Alireza5014\TestCase as TestCase;
 
-/**
- * @internal
- * @coversNothing
- */
 class EndMeetingParametersTest extends TestCase
 {
     public function testEndMeetingParameters()
@@ -36,7 +30,7 @@ class EndMeetingParametersTest extends TestCase
         $this->assertEquals($password, $endMeetingParams->getPassword());
 
         // Test setters that are ignored by the constructor
-        $endMeetingParams->setMeetingId($newId      = $this->faker->uuid);
+        $endMeetingParams->setMeetingId($newId = $this->faker->uuid);
         $endMeetingParams->setPassword($newPassword = $this->faker->password);
         $this->assertEquals($newId, $endMeetingParams->getMeetingId());
         $this->assertEquals($newPassword, $endMeetingParams->getPassword());
