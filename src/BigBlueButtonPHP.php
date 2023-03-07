@@ -60,6 +60,7 @@ class BigBlueButtonPHP
     protected $urlBuilder;
     protected $jSessionId;
     protected $timeOut = 10;
+    protected $curlopts = [];
 
     /**
      * Alireza5014 constructor.
