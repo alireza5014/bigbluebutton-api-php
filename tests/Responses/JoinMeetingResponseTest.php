@@ -1,27 +1,27 @@
 <?php
 
 /*
- * Alireza5014 open source conferencing system - https://www.Alireza5014.org/.
+ * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 Alireza5014 Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
  * Foundation; either version 3.0 of the License, or (at your option) any later
  * version.
  *
- * Alireza5014 is distributed in the hope that it will be useful, but WITHOUT ANY
+ * BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
  * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License along
- * with Alireza5014; if not, see <http://www.gnu.org/licenses/>.
+ * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Alireza5014\Parameters;
+namespace BigBlueButton\Parameters;
 
-use Alireza5014\Responses\JoinMeetingResponse;
-use Alireza5014\TestCase;
+use BigBlueButton\Responses\JoinMeetingResponse;
+use BigBlueButton\TestCase;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ use Alireza5014\TestCase;
 class JoinMeetingResponseTest extends TestCase
 {
     /**
-     * @var \Alireza5014\Responses\JoinMeetingResponse
+     * @var \BigBlueButton\Responses\JoinMeetingResponse
      */
     private $joinMeeting;
 
@@ -53,7 +53,7 @@ class JoinMeetingResponseTest extends TestCase
         $this->assertEquals('huzbpgthac7s', $this->joinMeeting->getAuthToken());
         $this->assertEquals('rbe7bbkjzx5mnoda', $this->joinMeeting->getSessionToken());
         $this->assertEquals('ALLOW', $this->joinMeeting->getGuestStatus());
-        $this->assertEquals('https://bigblubutton-server.sample/client/Alireza5014.html?sessionToken=0wzsph6uaelwc68z', $this->joinMeeting->getUrl());
+        $this->assertEquals('https://bigblubutton-server.sample/client/BigBlueButton.html?sessionToken=0wzsph6uaelwc68z', $this->joinMeeting->getUrl());
     }
 
     public function testJoinMeetingResponseTypes()

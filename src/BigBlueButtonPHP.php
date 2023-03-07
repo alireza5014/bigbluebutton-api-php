@@ -1,57 +1,57 @@
 <?php
 
 /*
- * Alireza5014 open source conferencing system - https://www.Alireza5014.org/.
+ * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2022 Alireza5014 Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
  * Foundation; either version 3.0 of the License, or (at your option) any later
  * version.
  *
- * Alireza5014 is distributed in the hope that it will be useful, but WITHOUT ANY
+ * BigBlueButton is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
  * PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
  *
  * You should have received a copy of the GNU Lesser General Public License along
- * with Alireza5014; if not, see <http://www.gnu.org/licenses/>.
+ * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Alireza5014;
 
-use Alireza5014\Core\ApiMethod;
-use Alireza5014\Exceptions\BadResponseException;
-use Alireza5014\Parameters\CreateMeetingParameters;
-use Alireza5014\Parameters\DeleteRecordingsParameters;
-use Alireza5014\Parameters\EndMeetingParameters;
-use Alireza5014\Parameters\GetMeetingInfoParameters;
-use Alireza5014\Parameters\GetRecordingsParameters;
-use Alireza5014\Parameters\HooksCreateParameters;
-use Alireza5014\Parameters\HooksDestroyParameters;
-use Alireza5014\Parameters\IsMeetingRunningParameters;
-use Alireza5014\Parameters\JoinMeetingParameters;
-use Alireza5014\Parameters\PublishRecordingsParameters;
-use Alireza5014\Parameters\UpdateRecordingsParameters;
-use Alireza5014\Responses\ApiVersionResponse;
-use Alireza5014\Responses\CreateMeetingResponse;
-use Alireza5014\Responses\DeleteRecordingsResponse;
-use Alireza5014\Responses\EndMeetingResponse;
-use Alireza5014\Responses\GetMeetingInfoResponse;
-use Alireza5014\Responses\GetMeetingsResponse;
-use Alireza5014\Responses\GetRecordingsResponse;
-use Alireza5014\Responses\HooksCreateResponse;
-use Alireza5014\Responses\HooksDestroyResponse;
-use Alireza5014\Responses\HooksListResponse;
-use Alireza5014\Responses\IsMeetingRunningResponse;
-use Alireza5014\Responses\JoinMeetingResponse;
-use Alireza5014\Responses\PublishRecordingsResponse;
-use Alireza5014\Responses\UpdateRecordingsResponse;
-use Alireza5014\Util\UrlBuilder;
+use BigBlueButton\Core\ApiMethod;
+use BigBlueButton\Exceptions\BadResponseException;
+use BigBlueButton\Parameters\CreateMeetingParameters;
+use BigBlueButton\Parameters\DeleteRecordingsParameters;
+use BigBlueButton\Parameters\EndMeetingParameters;
+use BigBlueButton\Parameters\GetMeetingInfoParameters;
+use BigBlueButton\Parameters\GetRecordingsParameters;
+use BigBlueButton\Parameters\HooksCreateParameters;
+use BigBlueButton\Parameters\HooksDestroyParameters;
+use BigBlueButton\Parameters\IsMeetingRunningParameters;
+use BigBlueButton\Parameters\JoinMeetingParameters;
+use BigBlueButton\Parameters\PublishRecordingsParameters;
+use BigBlueButton\Parameters\UpdateRecordingsParameters;
+use BigBlueButton\Responses\ApiVersionResponse;
+use BigBlueButton\Responses\CreateMeetingResponse;
+use BigBlueButton\Responses\DeleteRecordingsResponse;
+use BigBlueButton\Responses\EndMeetingResponse;
+use BigBlueButton\Responses\GetMeetingInfoResponse;
+use BigBlueButton\Responses\GetMeetingsResponse;
+use BigBlueButton\Responses\GetRecordingsResponse;
+use BigBlueButton\Responses\HooksCreateResponse;
+use BigBlueButton\Responses\HooksDestroyResponse;
+use BigBlueButton\Responses\HooksListResponse;
+use BigBlueButton\Responses\IsMeetingRunningResponse;
+use BigBlueButton\Responses\JoinMeetingResponse;
+use BigBlueButton\Responses\PublishRecordingsResponse;
+use BigBlueButton\Responses\UpdateRecordingsResponse;
+use BigBlueButton\Util\UrlBuilder;
 use SimpleXMLElement;
 
 /**
- * Class Alireza5014.
+ * Class BigBlueButton.
  */
 class BigBlueButtonPHP
 {
@@ -63,26 +63,26 @@ class BigBlueButtonPHP
     protected $curlopts = [];
 
     /**
-     * Alireza5014 constructor.
+     * BigBlueButton constructor.
      *
-     * @param null       $baseUrl
-     * @param null       $secret
+     * @param null $baseUrl
+     * @param null $secret
      * @param null|mixed $opts
      */
     public function __construct($baseUrl = null, $secret = null, $opts = null)
     {
         // Keeping backward compatibility with older deployed versions
         // BBB_SECRET is the new variable name and have higher priority against the old named BBB_SECURITY_SALT
-        $this->securitySecret   = $secret ?: getenv('BBB_SECRET') ?: getenv('BBB_SECURITY_SALT');
+        $this->securitySecret = $secret ?: getenv('BBB_SECRET') ?: getenv('BBB_SECURITY_SALT');
         $this->bbbServerBaseUrl = $baseUrl ?: getenv('BBB_SERVER_BASE_URL');
-        $this->urlBuilder       = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
-        $this->curlopts         = $opts['curl'] ?? [];
+        $this->urlBuilder = new UrlBuilder($this->securitySecret, $this->bbbServerBaseUrl);
+        $this->curlopts = $opts['curl'] ?? [];
     }
 
     /**
+     * @return ApiVersionResponse
      * @throws \RuntimeException
      *
-     * @return ApiVersionResponse
      */
     public function getApiVersion()
     {
@@ -111,9 +111,9 @@ class BigBlueButtonPHP
     /**
      * @param CreateMeetingParameters $createMeetingParams
      *
+     * @return CreateMeetingResponse
      * @throws \RuntimeException
      *
-     * @return CreateMeetingResponse
      */
     public function createMeeting($createMeetingParams)
     {
@@ -135,9 +135,9 @@ class BigBlueButtonPHP
     /**
      * @param $joinMeetingParams JoinMeetingParameters
      *
+     * @return JoinMeetingResponse
      * @throws \RuntimeException
      *
-     * @return JoinMeetingResponse
      */
     public function joinMeeting($joinMeetingParams)
     {
@@ -159,10 +159,10 @@ class BigBlueButtonPHP
     /**
      * @param $endParams EndMeetingParameters
      *
-     * @throws \RuntimeException
-     *
      * @return EndMeetingResponse
-     * */
+     * *@throws \RuntimeException
+     *
+     */
     public function endMeeting($endParams)
     {
         $xml = $this->processXmlResponse($this->getEndMeetingURL($endParams));
@@ -190,9 +190,9 @@ class BigBlueButtonPHP
     /**
      * @param $meetingParams
      *
+     * @return IsMeetingRunningResponse
      * @throws \RuntimeException
      *
-     * @return IsMeetingRunningResponse
      */
     public function isMeetingRunning($meetingParams)
     {
@@ -210,9 +210,9 @@ class BigBlueButtonPHP
     }
 
     /**
+     * @return GetMeetingsResponse
      * @throws \RuntimeException
      *
-     * @return GetMeetingsResponse
      */
     public function getMeetings()
     {
@@ -234,9 +234,9 @@ class BigBlueButtonPHP
     /**
      * @param $meetingParams GetMeetingInfoParameters
      *
+     * @return GetMeetingInfoResponse
      * @throws \RuntimeException
      *
-     * @return GetMeetingInfoResponse
      */
     public function getMeetingInfo($meetingParams)
     {
@@ -265,9 +265,9 @@ class BigBlueButtonPHP
     /**
      * @param $recordingParams
      *
+     * @return GetRecordingsResponse
      * @throws \RuntimeException
      *
-     * @return GetRecordingsResponse
      */
     public function getRecordings($recordingParams)
     {
@@ -289,9 +289,9 @@ class BigBlueButtonPHP
     /**
      * @param $recordingParams PublishRecordingsParameters
      *
+     * @return PublishRecordingsResponse
      * @throws \RuntimeException
      *
-     * @return PublishRecordingsResponse
      */
     public function publishRecordings($recordingParams)
     {
@@ -313,9 +313,9 @@ class BigBlueButtonPHP
     /**
      * @param $recordingParams DeleteRecordingsParameters
      *
+     * @return DeleteRecordingsResponse
      * @throws \RuntimeException
      *
-     * @return DeleteRecordingsResponse
      */
     public function deleteRecordings($recordingParams)
     {
@@ -337,9 +337,9 @@ class BigBlueButtonPHP
     /**
      * @param $recordingParams UpdateRecordingsParameters
      *
+     * @return UpdateRecordingsResponse
      * @throws \RuntimeException
      *
-     * @return UpdateRecordingsResponse
      */
     public function updateRecordings($recordingParams)
     {
@@ -413,6 +413,7 @@ class BigBlueButtonPHP
     }
 
     // ____________________ SPECIAL METHODS ___________________
+
     /**
      * @return string
      */
@@ -456,7 +457,7 @@ class BigBlueButtonPHP
      *
      * @param string $method
      * @param string $params
-     * @param boolean   $append
+     * @param boolean $append
      *
      * @return string
      */
@@ -474,9 +475,9 @@ class BigBlueButtonPHP
      * @param string $payload
      * @param string $contentType
      *
+     * @return SimpleXMLElement
      * @throws \RuntimeException
      *
-     * @return SimpleXMLElement
      */
     private function processXmlResponse($url, $payload = '', $contentType = 'application/xml')
     {
@@ -488,7 +489,7 @@ class BigBlueButtonPHP
             $timeout = 10;
 
             // Needed to store the JSESSIONID
-            $cookiefile     = tmpfile();
+            $cookiefile = tmpfile();
             $cookiefilepath = stream_get_meta_data($cookiefile)['uri'];
 
             foreach ($this->curlopts as $opt => $value) {

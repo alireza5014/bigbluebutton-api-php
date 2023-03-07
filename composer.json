@@ -1,13 +1,13 @@
 {
   "name": "alireza5014/bigbluebutton-api-php",
   "type": "library",
-  "description": "bigbluebutton PHP API Library for PHP",
+  "description": "BigBlueButton PHP API Library for PHP",
   "keywords": [
-    "Alireza5014",
+    "bigbluebutton",
     "bbb",
     "api"
   ],
-  "homepage": "https://bigbluebutton.org/",
+  "homepage": "http://bigbluebutton.org/",
   "license": "LGPL-3.0-or-later",
   "authors": [
     {
@@ -41,7 +41,8 @@
   },
   "autoload": {
     "psr-4": {
-      "BigBlueButtonPHP\\": "src"
+      "Alireza5014\\BigBlueButtonPHP\\": "src/"
+
     }
   }
 }
