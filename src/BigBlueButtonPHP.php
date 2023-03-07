@@ -20,40 +20,40 @@
 
 namespace Alireza5014;
 
-use BigBlueButton\Core\ApiMethod;
-use BigBlueButton\Exceptions\BadResponseException;
-use BigBlueButton\Parameters\CreateMeetingParameters;
-use BigBlueButton\Parameters\DeleteRecordingsParameters;
-use BigBlueButton\Parameters\EndMeetingParameters;
-use BigBlueButton\Parameters\GetMeetingInfoParameters;
-use BigBlueButton\Parameters\GetRecordingsParameters;
-use BigBlueButton\Parameters\HooksCreateParameters;
-use BigBlueButton\Parameters\HooksDestroyParameters;
-use BigBlueButton\Parameters\IsMeetingRunningParameters;
-use BigBlueButton\Parameters\JoinMeetingParameters;
-use BigBlueButton\Parameters\PublishRecordingsParameters;
-use BigBlueButton\Parameters\UpdateRecordingsParameters;
-use BigBlueButton\Responses\ApiVersionResponse;
-use BigBlueButton\Responses\CreateMeetingResponse;
-use BigBlueButton\Responses\DeleteRecordingsResponse;
-use BigBlueButton\Responses\EndMeetingResponse;
-use BigBlueButton\Responses\GetMeetingInfoResponse;
-use BigBlueButton\Responses\GetMeetingsResponse;
-use BigBlueButton\Responses\GetRecordingsResponse;
-use BigBlueButton\Responses\HooksCreateResponse;
-use BigBlueButton\Responses\HooksDestroyResponse;
-use BigBlueButton\Responses\HooksListResponse;
-use BigBlueButton\Responses\IsMeetingRunningResponse;
-use BigBlueButton\Responses\JoinMeetingResponse;
-use BigBlueButton\Responses\PublishRecordingsResponse;
-use BigBlueButton\Responses\UpdateRecordingsResponse;
-use BigBlueButton\Util\UrlBuilder;
+use Alireza5014\Core\ApiMethod;
+use Alireza5014\Exceptions\BadResponseException;
+use Alireza5014\Parameters\CreateMeetingParameters;
+use Alireza5014\Parameters\DeleteRecordingsParameters;
+use Alireza5014\Parameters\EndMeetingParameters;
+use Alireza5014\Parameters\GetMeetingInfoParameters;
+use Alireza5014\Parameters\GetRecordingsParameters;
+use Alireza5014\Parameters\HooksCreateParameters;
+use Alireza5014\Parameters\HooksDestroyParameters;
+use Alireza5014\Parameters\IsMeetingRunningParameters;
+use Alireza5014\Parameters\JoinMeetingParameters;
+use Alireza5014\Parameters\PublishRecordingsParameters;
+use Alireza5014\Parameters\UpdateRecordingsParameters;
+use Alireza5014\Responses\ApiVersionResponse;
+use Alireza5014\Responses\CreateMeetingResponse;
+use Alireza5014\Responses\DeleteRecordingsResponse;
+use Alireza5014\Responses\EndMeetingResponse;
+use Alireza5014\Responses\GetMeetingInfoResponse;
+use Alireza5014\Responses\GetMeetingsResponse;
+use Alireza5014\Responses\GetRecordingsResponse;
+use Alireza5014\Responses\HooksCreateResponse;
+use Alireza5014\Responses\HooksDestroyResponse;
+use Alireza5014\Responses\HooksListResponse;
+use Alireza5014\Responses\IsMeetingRunningResponse;
+use Alireza5014\Responses\JoinMeetingResponse;
+use Alireza5014\Responses\PublishRecordingsResponse;
+use Alireza5014\Responses\UpdateRecordingsResponse;
+use Alireza5014\Util\UrlBuilder;
 use SimpleXMLElement;
 
 /**
  * Class BigBlueButton.
  */
-class BigBlueButton
+class BigBlueButtonPHP
 {
     protected $securitySecret;
     protected $bbbServerBaseUrl;

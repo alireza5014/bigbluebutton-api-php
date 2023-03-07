@@ -38,10 +38,10 @@
  * @internal
  * @coversNothing
  */
-class GetMeetingInfoResponseTest extends \BigBlueButton\TestCase
+class GetMeetingInfoResponseTest extends \Alireza5014\TestCase
 {
     /**
-     * @var \BigBlueButton\Responses\GetMeetingInfoResponse
+     * @var \Alireza5014\Responses\GetMeetingInfoResponse
      */
     private $meetingInfo;
 
@@ -51,12 +51,12 @@ class GetMeetingInfoResponseTest extends \BigBlueButton\TestCase
 
         $xml = $this->loadXmlFile(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR . 'get_meeting_info.xml');
 
-        $this->meetingInfo = new \BigBlueButton\Responses\GetMeetingInfoResponse($xml);
+        $this->meetingInfo = new \Alireza5014\Responses\GetMeetingInfoResponse($xml);
     }
 
     public function testGetMeetingInfoResponseContent()
     {
-        $this->assertInstanceOf('BigBlueButton\Core\Meeting', $this->meetingInfo->getMeeting());
+        $this->assertInstanceOf('Alireza5014\Core\Meeting', $this->meetingInfo->getMeeting());
         $this->assertCount(4, $this->meetingInfo->getMeeting()->getAttendees());
         $this->assertEquals('SUCCESS', $this->meetingInfo->getReturnCode());
 

@@ -20,13 +20,13 @@
 
 namespace BigBlueButton;
 
-use BigBlueButton\Core\ApiMethod;
-use BigBlueButton\Parameters\DeleteRecordingsParameters;
-use BigBlueButton\Parameters\EndMeetingParameters;
-use BigBlueButton\Parameters\GetMeetingInfoParameters;
-use BigBlueButton\Parameters\GetRecordingsParameters;
-use BigBlueButton\Parameters\IsMeetingRunningParameters;
-use BigBlueButton\Parameters\PublishRecordingsParameters;
+use Alireza5014\Core\ApiMethod;
+use Alireza5014\Parameters\DeleteRecordingsParameters;
+use Alireza5014\Parameters\EndMeetingParameters;
+use Alireza5014\Parameters\GetMeetingInfoParameters;
+use Alireza5014\Parameters\GetRecordingsParameters;
+use Alireza5014\Parameters\IsMeetingRunningParameters;
+use Alireza5014\Parameters\PublishRecordingsParameters;
 
 /**
  * Class BigBlueButtonTest.

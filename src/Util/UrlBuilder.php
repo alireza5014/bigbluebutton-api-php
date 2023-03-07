@@ -18,7 +18,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Util;
+namespace Alireza5014\Util;
 
 /**
  * Class UrlBuilder.

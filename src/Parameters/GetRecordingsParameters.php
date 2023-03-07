@@ -18,7 +18,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
 /**
  * Class GetRecordingsParameters.

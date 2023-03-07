@@ -18,7 +18,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Core;
+namespace Alireza5014\Core;
 
 /**
  * Class Record.

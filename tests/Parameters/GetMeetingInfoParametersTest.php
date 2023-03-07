@@ -18,9 +18,9 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
-use BigBlueButton\TestCase;
+use Alireza5014\TestCase;
 
 /**
  * @internal

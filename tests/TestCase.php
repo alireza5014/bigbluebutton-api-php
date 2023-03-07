@@ -20,14 +20,14 @@
 
 namespace BigBlueButton;
 
-use BigBlueButton\Core\GuestPolicy;
-use BigBlueButton\Core\MeetingLayout;
-use BigBlueButton\Parameters\CreateMeetingParameters;
-use BigBlueButton\Parameters\EndMeetingParameters;
-use BigBlueButton\Parameters\JoinMeetingParameters;
-use BigBlueButton\Parameters\UpdateRecordingsParameters;
-use BigBlueButton\Responses\CreateMeetingResponse;
-use BigBlueButton\Responses\UpdateRecordingsResponse;
+use Alireza5014\Core\GuestPolicy;
+use Alireza5014\Core\MeetingLayout;
+use Alireza5014\Parameters\CreateMeetingParameters;
+use Alireza5014\Parameters\EndMeetingParameters;
+use Alireza5014\Parameters\JoinMeetingParameters;
+use Alireza5014\Parameters\UpdateRecordingsParameters;
+use Alireza5014\Responses\CreateMeetingResponse;
+use Alireza5014\Responses\UpdateRecordingsResponse;
 use Faker\Factory as Faker;
 use Faker\Generator;
 

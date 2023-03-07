@@ -18,10 +18,10 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
-use BigBlueButton\Responses\EndMeetingResponse;
-use BigBlueButton\TestCase;
+use Alireza5014\Responses\EndMeetingResponse;
+use Alireza5014\TestCase;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ use BigBlueButton\TestCase;
 class EndMeetingResponseTest extends TestCase
 {
     /**
-     * @var \BigBlueButton\Responses\EndMeetingResponse
+     * @var \Alireza5014\Responses\EndMeetingResponse
      */
     private $end;
 

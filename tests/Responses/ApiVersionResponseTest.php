@@ -18,10 +18,10 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
-use BigBlueButton\Responses\ApiVersionResponse;
-use BigBlueButton\TestCase;
+use Alireza5014\Responses\ApiVersionResponse;
+use Alireza5014\TestCase;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ use BigBlueButton\TestCase;
 class ApiVersionResponseTest extends TestCase
 {
     /**
-     * @var \BigBlueButton\Responses\ApiVersionResponse
+     * @var \Alireza5014\Responses\ApiVersionResponse
      */
     private $version;
 

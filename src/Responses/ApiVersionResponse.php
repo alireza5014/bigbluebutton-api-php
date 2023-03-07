@@ -18,7 +18,7 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Responses;
+namespace Alireza5014\Responses;
 
 /**
  * Class ApiVersionResponse.

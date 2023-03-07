@@ -18,9 +18,9 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Responses;
+namespace Alireza5014\Responses;
 
-use BigBlueButton\Core\Meeting;
+use Alireza5014\Core\Meeting;
 
 /**
  * Class GetMeetingInfoResponse.

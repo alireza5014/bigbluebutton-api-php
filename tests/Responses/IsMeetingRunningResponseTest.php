@@ -18,10 +18,10 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
-use BigBlueButton\Responses\IsMeetingRunningResponse;
-use BigBlueButton\TestCase;
+use Alireza5014\Responses\IsMeetingRunningResponse;
+use Alireza5014\TestCase;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ use BigBlueButton\TestCase;
 class IsMeetingRunningResponseTest extends TestCase
 {
     /**
-     * @var \BigBlueButton\Responses\IsMeetingRunningResponse
+     * @var \Alireza5014\Responses\IsMeetingRunningResponse
      */
     private $running;
 

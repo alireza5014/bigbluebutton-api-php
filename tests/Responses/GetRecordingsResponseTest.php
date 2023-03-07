@@ -18,10 +18,10 @@
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace BigBlueButton\Parameters;
+namespace Alireza5014\Parameters;
 
-use BigBlueButton\Responses\GetRecordingsResponse;
-use BigBlueButton\TestCase;
+use Alireza5014\Responses\GetRecordingsResponse;
+use Alireza5014\TestCase;
 
 /**
  * @internal
@@ -30,7 +30,7 @@ use BigBlueButton\TestCase;
 class GetRecordingsResponseTest extends TestCase
 {
     /**
-     * @var \BigBlueButton\Responses\GetRecordingsResponse
+     * @var \Alireza5014\Responses\GetRecordingsResponse
      */
     private $records;
 
