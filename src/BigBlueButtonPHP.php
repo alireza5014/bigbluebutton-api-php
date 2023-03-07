@@ -53,7 +53,7 @@ use SimpleXMLElement;
 /**
  * Class Alireza5014.
  */
-class BigBlueButton
+class BigBlueButtonPHP
 {
     protected $securitySecret;
     protected $bbbServerBaseUrl;
