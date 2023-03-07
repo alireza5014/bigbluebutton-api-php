@@ -41,8 +41,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Alireza5014\\BigBlueButtonPHP\\": "src/"
 
+      "BigBlueButton\\": "src"
     }
   }
 }
