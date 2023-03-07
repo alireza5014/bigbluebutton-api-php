@@ -1,8 +1,9 @@
 <?php
-/**
+
+/*
  * BigBlueButton open source conferencing system - https://www.bigbluebutton.org/.
  *
- * Copyright (c) 2016-2018 BigBlueButton Inc. and by respective authors (see below).
+ * Copyright (c) 2016-2022 BigBlueButton Inc. and by respective authors (see below).
  *
  * This program is free software; you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free Software
@@ -16,13 +17,16 @@
  * You should have received a copy of the GNU Lesser General Public License along
  * with BigBlueButton; if not, see <http://www.gnu.org/licenses/>.
  */
+
 namespace Alireza5014\Parameters;
 
-use Alireza5014\TestCase as TestCase;
+use Alireza5014\TestCase;
 
 /**
- * Class CreateMeetingParametersTest
- * @package Alireza5014\Parameters
+ * Class CreateMeetingParametersTest.
+ *
+ * @internal
+ * @coversNothing
  */
 class CreateMeetingParametersTest extends TestCase
 {
@@ -50,8 +54,30 @@ class CreateMeetingParametersTest extends TestCase
         $this->assertEquals($params['logo'], $createMeetingParams->getLogo());
         $this->assertEquals($params['copyright'], $createMeetingParams->getCopyright());
         $this->assertEquals($params['muteOnStart'], $createMeetingParams->isMuteOnStart());
+        $this->assertEquals($params['lockSettingsDisableCam'], $createMeetingParams->isLockSettingsDisableCam());
+        $this->assertEquals($params['lockSettingsDisableMic'], $createMeetingParams->isLockSettingsDisableMic());
+        $this->assertEquals($params['lockSettingsDisablePrivateChat'], $createMeetingParams->isLockSettingsDisablePrivateChat());
+        $this->assertEquals($params['lockSettingsDisablePublicChat'], $createMeetingParams->isLockSettingsDisablePublicChat());
+        $this->assertEquals($params['lockSettingsDisableNote'], $createMeetingParams->isLockSettingsDisableNote());
+        $this->assertEquals($params['lockSettingsHideUserList'], $createMeetingParams->isLockSettingsHideUserList());
+        $this->assertEquals($params['lockSettingsLockedLayout'], $createMeetingParams->isLockSettingsLockedLayout());
+        $this->assertEquals($params['lockSettingsLockOnJoin'], $createMeetingParams->isLockSettingsLockOnJoin());
+        $this->assertEquals($params['lockSettingsLockOnJoinConfigurable'], $createMeetingParams->isLockSettingsLockOnJoinConfigurable());
+        $this->assertEquals($params['allowModsToUnmuteUsers'], $createMeetingParams->isAllowModsToUnmuteUsers());
+        $this->assertEquals($params['allowModsToEjectCameras'], $createMeetingParams->isAllowModsToEjectCameras());
+        $this->assertEquals($params['guestPolicy'], $createMeetingParams->getGuestPolicy());
+        $this->assertEquals($params['endWhenNoModerator'], $createMeetingParams->isEndWhenNoModerator());
+        $this->assertEquals($params['endWhenNoModeratorDelayInMinutes'], $createMeetingParams->getEndWhenNoModeratorDelayInMinutes());
+        $this->assertEquals($params['learningDashboardEnabled'], $createMeetingParams->isLearningDashboardEnabled());
+        $this->assertEquals($params['learningDashboardCleanupDelayInMinutes'], $createMeetingParams->getLearningDashboardCleanupDelayInMinutes());
+        $this->assertEquals($params['breakoutRoomsEnabled'], $createMeetingParams->isBreakoutRoomsEnabled());
+        $this->assertEquals($params['breakoutRoomsRecord'], $createMeetingParams->isBreakoutRoomsRecord());
+        $this->assertEquals($params['breakoutRoomsPrivateChatEnabled'], $createMeetingParams->isBreakoutRoomsPrivateChatEnabled());
+        $this->assertEquals($params['meetingEndedURL'], $createMeetingParams->getMeetingEndedURL());
+        $this->assertEquals($params['meetingLayout'], $createMeetingParams->getMeetingLayout());
         $this->assertEquals($params['meta_presenter'], $createMeetingParams->getMeta('presenter'));
         $this->assertEquals($params['meta_endCallbackUrl'], $createMeetingParams->getMeta('endCallbackUrl'));
+        $this->assertEquals($params['meta_bbb-recording-ready-url'], $createMeetingParams->getMeta('bbb-recording-ready-url'));
 
         // Check values are empty of this is not a breakout room
         $this->assertNull($createMeetingParams->isBreakout());
@@ -60,7 +86,7 @@ class CreateMeetingParametersTest extends TestCase
         $this->assertNull($createMeetingParams->isFreeJoin());
 
         // Test setters that are ignored by the constructor
-        $createMeetingParams->setMeetingId($newId = $this->faker->uuid);
+        $createMeetingParams->setMeetingId($newId     = $this->faker->uuid);
         $createMeetingParams->setMeetingName($newName = $this->faker->name);
         $this->assertEquals($newName, $createMeetingParams->getMeetingName());
         $this->assertEquals($newId, $createMeetingParams->getMeetingId());
@@ -77,10 +103,10 @@ class CreateMeetingParametersTest extends TestCase
 
         $params = $createBreakoutMeetingParams->getHTTPQuery();
 
-        $this->assertContains('isBreakout=' . urlencode($createBreakoutMeetingParams->isBreakout() ? 'true' : 'false'), $params);
-        $this->assertContains('parentMeetingID=' . urlencode($createBreakoutMeetingParams->getParentMeetingId()), $params);
-        $this->assertContains('sequence=' . urlencode($createBreakoutMeetingParams->getSequence()), $params);
-        $this->assertContains('freeJoin=' . urlencode($createBreakoutMeetingParams->isFreeJoin() ? 'true' : 'false'), $params);
+        $this->assertStringContainsString('isBreakout=' . urlencode($createBreakoutMeetingParams->isBreakout() ? 'true' : 'false'), $params);
+        $this->assertStringContainsString('parentMeetingID=' . urlencode($createBreakoutMeetingParams->getParentMeetingId()), $params);
+        $this->assertStringContainsString('sequence=' . urlencode($createBreakoutMeetingParams->getSequence()), $params);
+        $this->assertStringContainsString('freeJoin=' . urlencode($createBreakoutMeetingParams->isFreeJoin() ? 'true' : 'false'), $params);
     }
 
     public function testGetPresentationsAsXMLWithUrl()

@@ -26,7 +26,7 @@ namespace Alireza5014\Responses;
 class HooksDestroyResponse extends BaseResponse
 {
     /**
-     * @return boolean
+     * @return null|bool
      */
     public function removed()
     {
