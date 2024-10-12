@@ -20,6 +20,8 @@
 
 namespace Alireza5014\Parameters;
 
+use Illuminate\Support\Facades\Log;
+
 /**
  * Class UpdateRecordingsParameters.
  */
@@ -29,6 +31,7 @@ class UpdateRecordingsParameters extends MetaParameters
      * @var string
      */
     private $recordingId;
+    private $metadata=[];
 
     /**
      * UpdateRecordingsParameters constructor.
@@ -46,6 +49,14 @@ class UpdateRecordingsParameters extends MetaParameters
     public function getRecordingId()
     {
         return $this->recordingId;
+    }
+
+    public function setMetadata($key, $value)
+    {
+        $data = ['meta_' . $key => $value];
+        $this->metadata = array_merge($data, $this->metadata);
+
+        return $this;
     }
 
     /**
@@ -68,7 +79,7 @@ class UpdateRecordingsParameters extends MetaParameters
         $queries = [
             'recordID' => $this->recordingId,
         ];
-
+        $queries=array_merge($queries,$this->metadata);
         $this->buildMeta($queries);
 
         return $this->buildHTTPQuery($queries);
